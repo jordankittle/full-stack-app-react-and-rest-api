@@ -5,8 +5,6 @@ export const APIContext = React.createContext();
 
 export const Provider = (props) => {
 
-    const title = "Welcome to the client";
-
     // handle API calls
     const api = (path, method = 'GET', body = null, requiresAuth = false, credentials = null) => {
         const url = APISettings.apiBaseUrl + path;
@@ -36,7 +34,6 @@ export const Provider = (props) => {
 
     return(
         <APIContext.Provider value={{
-            title,
             actions: {
                 getCourses,
             },

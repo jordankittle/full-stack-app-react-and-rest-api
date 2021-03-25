@@ -1,16 +1,22 @@
 import './Components/global.css';
 import React, { useContext } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 import { APIContext } from './Context';
 import Courses from './Components/Courses';
 
 function App() {
 
   const { title }  = useContext(APIContext);
-  console.log(title);
   return (
-    <div className="App">
-      <Courses />
-    </div>
+    <Router>
+      <div>
+        <Route exact path='/' component={Courses} />
+      </div>
+    </Router>
   );
   
 }

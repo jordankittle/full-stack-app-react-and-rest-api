@@ -4,7 +4,7 @@ function Course({ course }) {
     <>
         <a className="course--module course--link" href={`/course/${course.id}`}>
             <h2 className="course--label">Course</h2>
-            <h3 class="course--title">{course.title}</h3>
+            <h3 className="course--title">{course.title}</h3>
         </a>
     </>
   );
