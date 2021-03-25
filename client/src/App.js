@@ -6,16 +6,24 @@ import {
   Switch
 } from 'react-router-dom';
 import { APIContext } from './Context';
+
 import Courses from './Components/Courses';
+import CourseDetail from './Components/CourseDetail';
 
 function App() {
 
   const { title }  = useContext(APIContext);
   return (
     <Router>
-      <div>
-        <Route exact path='/' component={Courses} />
-      </div>
+      
+        <header>Header</header>
+        <main>
+          <Switch>
+            <Route exact path='/' component={Courses} />
+            <Route path='/courses/:id' component={CourseDetail} />
+          </Switch>        
+        </main>
+      
     </Router>
   );
   

@@ -29,6 +29,11 @@ export const Provider = (props) => {
 
     const getCourses = async () => {
         const response = await api('/courses',);
+        return response.json();
+    };
+
+    const getCourse = async (id) => {
+        const response = await api(`/courses/${id}`);
         return response.json().then(data => data);
     };
 
@@ -36,10 +41,10 @@ export const Provider = (props) => {
         <APIContext.Provider value={{
             actions: {
                 getCourses,
+                getCourse,
             },
         }}>
         { props.children }
         </APIContext.Provider>
     );
-
 };
