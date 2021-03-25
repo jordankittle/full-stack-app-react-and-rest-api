@@ -36,7 +36,7 @@ const UserSignIn = () => {
                 <label htmlFor="password">Password</label>
                 <input id="password" name="password" type="password" defaultValue="" />
                 <button className="button" type="submit">Sign In</button>
-                <button className="button button-secdonary" onClick={cancel()}>Cancel</button>
+                <button className="button button-secdonary" onClick={cancel}>Cancel</button>
 
             </form>
             <p> Don't have a user account? Click here to <a href="/signup">sign up</a></p>
