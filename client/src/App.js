@@ -9,10 +9,10 @@ import { APIContext } from './Context';
 
 import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';
+import UserSignIn from './Components/UserSignIn';
 
 function App() {
 
-  const { title }  = useContext(APIContext);
   return (
     <Router>
       
@@ -21,6 +21,8 @@ function App() {
           <Switch>
             <Route exact path='/' component={Courses} />
             <Route path='/courses/:id' component={CourseDetail} />
+            <Route path='/signin' component={UserSignIn} />
+            
           </Switch>        
         </main>
       

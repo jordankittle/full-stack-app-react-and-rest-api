@@ -13,7 +13,7 @@ function CourseDetail(){
                 .then(data => setCourse(data.course));
         };
         getCourse();
-    }, [actions]);
+    }, [actions, id]);
 
     if(course){
         return (
@@ -21,7 +21,7 @@ function CourseDetail(){
                 <div className="actions--bar">
                     <div className="wrap">
                         <a className="button" href={`/courses/${course.id}/update`}>Update Course</a>
-                        <a className="button" href="#">Delete Course</a>
+                        <button className="button" href="#">Delete Course</button>
                         <a className="button button-secondary" href="/">Return to List</a>
                     </div>
                 </div>
