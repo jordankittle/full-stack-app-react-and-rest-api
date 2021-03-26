@@ -41,7 +41,7 @@ function CourseDetail(){
                             <p>{course.estimatedTime}</p>
 
                             <h3 className="course--detail--title">Materials Needed</h3>
-                            <ul class="course--detail--list">
+                            <ul className="course--detail--list">
                                 <li>{course.materialsNeeded}</li>
                             </ul>
                         </div>

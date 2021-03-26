@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { APIContext } from '../Context';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
     const { authenticatedUser } = useContext(APIContext);
-    console.log(authenticatedUser);
 
     return (
         <header>
@@ -15,12 +15,12 @@ const Header = () => {
                         authenticatedUser ?
                         <ul className="header--signedin">
                             <li>{`Welcome, ${authenticatedUser.firstName}!`}</li>
-                            <li><a href="/signout">Sign Out</a></li>
+                            <li><Link to="/signout">Sign Out</Link></li>
                         </ul>
                     :
                         <ul className="header--signedout">
-                            <li><a href="/signup">Sign Up</a></li>
-                            <li><a href="/signin">Sign In</a></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                            <li><Link to="/signin">Sign In</Link></li>
                         </ul>
                     }
                 </nav>

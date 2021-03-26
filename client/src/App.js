@@ -10,8 +10,10 @@ import { APIContext } from './Context';
 import Header from './Components/Header';
 import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';
+import CreateCourse from './Components/CreateCourse';
 import UserSignIn from './Components/UserSignIn';
 import UserSignUp from './Components/UserSignUp';
+
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
         <main>
           <Switch>
             <Route exact path='/' component={Courses} />
+            <Route path='/courses/create' component={CreateCourse} />
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' component={UserSignIn} />
             <Route path='/signup' component={UserSignUp} />
