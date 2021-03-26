@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { APIContext } from './Context';
 
+import Header from './Components/Header';
 import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';
 import UserSignIn from './Components/UserSignIn';
@@ -17,7 +18,7 @@ function App() {
   return (
     <Router>
       
-        <header>Header</header>
+        <Header />
         <main>
           <Switch>
             <Route exact path='/' component={Courses} />

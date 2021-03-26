@@ -28,9 +28,9 @@ const UserSignIn = () => {
             .then((user) => {
                 if(user === null){
                     setErrors(['Sign-in was unsuccessful']);
+                    console.log(errors);
                 } else{
                     //set history from
-                    console.log(user);
                 }
             })
             .catch((error) => {

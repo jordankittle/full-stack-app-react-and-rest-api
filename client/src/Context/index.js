@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import Cookies from 'js-cookie';
 import { APISettings } from '../config';
 
 export const APIContext = React.createContext();
 
 export const Provider = (props) => {
 
-    const [ authenticatedUser, setAuthenticatedUser ] = useState();
+    const [ authenticatedUser, setAuthenticatedUser ] = useState(() => {
+        return Cookies.getJSON('authenticatedUser') || null;
+    });
 
     // handle API calls
     const api = (path, method = 'GET', body = null, requiresAuth = false, credentials = null) => {
@@ -42,6 +45,7 @@ export const Provider = (props) => {
     };
 
     const getUser = async (username, password) => {
+        console.log(username, password);
         const response = await api('/users','GET', null, true, {username, password});
         if(response.status === 200){
             return response.json();
@@ -53,7 +57,7 @@ export const Provider = (props) => {
     };
 
     const createUser = async (user) => {
-        const response = await api('/users', POST, user);
+        const response = await api('/users', 'POST', user);
         if(response.status === 201) {
             return [];
         } else if(response.status === 400){
@@ -64,15 +68,18 @@ export const Provider = (props) => {
     };
 
     const signIn = async (username, password) => {
-        const user = await getUser(username, password);
+        const { user } = await getUser(username, password);
         if(user !== null){
             setAuthenticatedUser(user);
+            const cookieOptions = { expires: 1 };
+            Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
         }
         return user;
     };
 
     return(
         <APIContext.Provider value={{
+            authenticatedUser,
             actions: {
                 getCourses,
                 getCourse,

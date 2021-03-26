@@ -69,17 +69,17 @@ const UserSignUp = () => {
     return (
         <div className="form--centered">
             <h2>Sign Up</h2>
-            <form>
+            <form onSubmit={submit}>
                 <label htmlFor="firstName">First Name</label>
-                <input id="firstName" name="firstName" type="text" />
+                <input id="firstName" name="firstName" onChange={change} type="text" />
                 <label htmlFor="lastName">Last Name</label>
-                <input id="lastName" name="lastName" type="text" />
+                <input id="lastName" name="lastName" onChange={change} type="text" />
                 <label htmlFor="emailAddress">Email Address</label>
-                <input id="emailAddress" name="emailAddress" type="email" />
+                <input id="emailAddress" name="emailAddress" onChange={change} type="email" />
                 <label htmlFor="password">Password</label>
-                <input id="password" name="password" type="password" />
+                <input id="password" name="password" onChange={change} type="password" />
                 <label htmlFor="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" />
+                <input id="confirmPassword" name="confirmPassword" onChange={change} type="password" />
                 <button class="button" type="submit">Sign Up</button>
                 <button class="button button-secondary" onClick={cancel}>Cancel</button>
             </form>
