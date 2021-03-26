@@ -3,7 +3,8 @@ import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  useLocation
 } from 'react-router-dom';
 import { APIContext } from './Context';
 

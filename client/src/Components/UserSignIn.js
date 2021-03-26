@@ -12,13 +12,14 @@ const UserSignIn = () => {
     const history = useHistory();
 
     const change = (event) => {
-        const name = event.target.name;
         const value = event.target.value;
-        if(name === 'emailAddress'){
-            setEmailAddress(value);
-        }
-        if(name === 'password'){
-            setPassword(value);
+        switch(event.target.name){
+            case "emailAddress":
+                setEmailAddress(value);
+                break;
+            case "password":
+                setPassword(value);
+                break;
         }
     };
 
