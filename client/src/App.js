@@ -4,9 +4,9 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  useLocation
 } from 'react-router-dom';
 import { APIContext } from './Context';
+import PrivateRoute from './PrivateRoute';
 
 import Header from './Components/Header';
 import Courses from './Components/Courses';
@@ -25,7 +25,7 @@ function App() {
         <main>
           <Switch>
             <Route exact path='/' component={Courses} />
-            <Route path='/courses/create' component={CreateCourse} />
+            <PrivateRoute path='/courses/create' component={CreateCourse} />
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' component={UserSignIn} />
             <Route path='/signup' component={UserSignUp} />

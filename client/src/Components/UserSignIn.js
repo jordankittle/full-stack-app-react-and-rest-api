@@ -1,15 +1,16 @@
 import { useState, useContext } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
 
 const UserSignIn = () => {
     const [ emailAddress, setEmailAddress ] = useState();
     const [ password, setPassword ] = useState();
-    const [ errors, setErrors ] =  useState([]);
+    const [ errors, setErrors ] =  useState([]);   
 
     const { actions } = useContext(APIContext);
 
     const history = useHistory();
+    let location = useLocation();
 
     const change = (event) => {
         const value = event.target.value;
@@ -25,13 +26,15 @@ const UserSignIn = () => {
 
     const submit = (event) => {
         event.preventDefault();
+        const { from } = location.state || { from: { pathname: '/'} };
+
         actions.signIn(emailAddress, password)
             .then((user) => {
                 if(user === null){
                     setErrors(['Sign-in was unsuccessful']);
                     console.log(errors);
                 } else{
-                    //set history from
+                    history.push(from);
                 }
             })
             .catch((error) => {

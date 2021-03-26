@@ -6,16 +6,34 @@ import CourseForm from './CourseForm';
 
 const CreateCourse = () => {
 
-    const [ courseTitle, setCourseTitle ] = useState();
-    const [ courseAuthor, setCourseAuthor ] = useState();
-    const [ courseDescription, setCourseDescription ] = useState();
-    const [ estimatedTime, setEstimatedTime ] = useState();
-    const [ materialsNeeded, setMaterialsNeeded ] = useState();
+    const [ courseTitle, setCourseTitle ] = useState('');
+    const [ courseAuthor, setCourseAuthor ] = useState('');
+    const [ courseDescription, setCourseDescription ] = useState('');
+    const [ estimatedTime, setEstimatedTime ] = useState('');
+    const [ materialsNeeded, setMaterialsNeeded ] = useState('');
     const [ errors, setErrors ] = useState([]);
+
+    const { authenticatedUser, actions } = useContext(APIContext);
     
     const history = useHistory();
 
     const submit = (event) => {
+        const courseData = {
+            userId: authenticatedUser.id,
+            title: courseTitle,
+            description: courseDescription,
+            estimatedTime,
+            materialsNeeded,
+        };
+        actions.createCourse(courseData)
+            .then(response => {
+                setErrors(response);
+                console.log('response: ', response);
+            })
+            .catch(error => {
+                setErrors(error);
+                //history.push('/error')
+            })
 
     };
 
