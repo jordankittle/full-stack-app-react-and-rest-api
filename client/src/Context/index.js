@@ -30,8 +30,8 @@ export const Provider = (props) => {
         options.url = url;
         
         if(body !== null){
-            // options.body = JSON.stringify(body);
-            options.data = JSON.stringify(body);
+            options.body = JSON.stringify(body);
+            //options.data = JSON.stringify(body);
         }
 
         if(requiresAuth){
