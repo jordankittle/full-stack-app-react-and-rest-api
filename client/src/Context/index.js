@@ -72,6 +72,12 @@ export const Provider = (props) => {
         return response;
     };
 
+    const updateCourse = async (courseData) => {
+        const { emailAddress: username, password } = authenticatedUser;
+        const response = await api(`/courses/${courseData.id}`, 'PUT', courseData, true, {username, password});
+        return response;
+    };
+
     const signIn = async (username, password) => {
         const response = await getUser(username, password);
         try{
@@ -106,6 +112,7 @@ export const Provider = (props) => {
                 getCourse,
                 createUser,
                 createCourse,
+                updateCourse,
             },
         }}>
         { props.children }

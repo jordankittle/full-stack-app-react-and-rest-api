@@ -1,11 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { APIContext } from '../Context';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import CourseForm from './CourseForm';
 
-const CreateCourse = () => {
-
+const UpdateCourse = () => {
+    
+    const  { id }  = useParams();
+    const [course, setCourse] = useState();
     const [ courseTitle, setCourseTitle ] = useState('');
     const [ courseAuthor, setCourseAuthor ] = useState('');
     const [ courseDescription, setCourseDescription ] = useState('');
@@ -17,25 +19,44 @@ const CreateCourse = () => {
     
     const history = useHistory();
 
+    useEffect( () => {
+        (async () => {
+            await actions.getCourse(id)
+                .then(data => {
+                    setCourse(data.course);
+                    return data.course;
+                })
+                .then((course)=> {
+                    console.log(course);
+                    setCourseTitle(course.title);
+                    setCourseAuthor(`${course.User.firstName} ${course.User.lastName}`);
+                    setCourseDescription(course.description);
+                    setEstimatedTime(course.estimatedTime);
+                    setMaterialsNeeded(course.materialsNeeded);
+                })
+        })();
+        
+    }, [actions, id]);
+    
     const submit = (event) => {
         const courseData = {
+            id,
             userId: authenticatedUser.id,
             title: courseTitle,
             description: courseDescription,
             estimatedTime,
             materialsNeeded,
         };
-        actions.createCourse(courseData)
+        actions.updateCourse(courseData)
             .then(response => {
-                if(response.status === 201){
-                    const location = response.headers.get('Location');
-                    history.push(location);
+                if(response.status === 204){
+                    console.log('Course successfully updated')
                 } else if (response.status === 400){
                     response.json().then(data => {
                         setErrors(data.errors);
                     });
                 } else {
-                    throw new Error('Unknown error from createCourse()');
+                    throw new Error('Unknown error from updateCourse()');
                 }
             })
             .catch(error => {
@@ -74,31 +95,31 @@ const CreateCourse = () => {
 
     return(
         <div className="wrap">
-            <h2>Create Course</h2>
+            <h2>Update Course</h2>
             <CourseForm 
                 cancel={cancel}
                 errors={errors}
                 submit={submit}
-                submitText="Create Course"
+                submitText="Update Course"
                 elements={() => (
                     <>
                         <div>
                             <label htmlFor="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" onChange={change} type="text" />
+                            <input type="text" id="courseTitle" name="courseTitle" onChange={change} value={courseTitle}  />
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input id="courseAuthor" name="courseAuthor" onChange={change} type="text" />
+                            <input type="text" id="courseAuthor" name="courseAuthor" onChange={change} value={courseAuthor}  />
 
                             <label htmlFor="courseDescription">Course Description</label>
-                            <textarea id="courseDescription" name="courseDescription" onChange={change}></textarea>
+                            <textarea id="courseDescription" name="courseDescription" onChange={change} value={courseDescription}></textarea>
 
                         </div>
                         <div>
                             <label htmlFor="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" onChange={change} type="text" />
+                            <input type="text" id="estimatedTime" name="estimatedTime" onChange={change} value={estimatedTime}  />
 
                             <label htmlFor="materialsNeeded">Materials Needed</label>
-                            <textarea id="materialsNeeded" name="materialsNeeded" onChange={change}></textarea>
+                            <textarea id="materialsNeeded" name="materialsNeeded" onChange={change} value={materialsNeeded}></textarea>
                         </div>                    
                     </>
                 )}
@@ -108,4 +129,4 @@ const CreateCourse = () => {
 
 };
 
-export default CreateCourse;
+export default UpdateCourse;

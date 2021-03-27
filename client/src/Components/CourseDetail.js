@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
 
 function CourseDetail(){
@@ -20,9 +20,9 @@ function CourseDetail(){
             <>
                 <div className="actions--bar">
                     <div className="wrap">
-                        <a className="button" href={`/courses/${course.id}/update`}>Update Course</a>
+                        <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
                         <button className="button" href="#">Delete Course</button>
-                        <a className="button button-secondary" href="/">Return to List</a>
+                        <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
 
