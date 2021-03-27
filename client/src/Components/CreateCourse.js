@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { APIContext } from '../Context';
 import { useHistory } from 'react-router-dom';
 
@@ -16,6 +16,10 @@ const CreateCourse = () => {
     const { authenticatedUser, actions } = useContext(APIContext);
     
     const history = useHistory();
+
+    useEffect(() => {
+        setCourseAuthor(`${authenticatedUser.firstName} ${authenticatedUser.lastName}`);
+    }, []);
 
     const submit = (event) => {
         const courseData = {
@@ -63,7 +67,7 @@ const CreateCourse = () => {
             case "courseDescription":
                 setCourseDescription(value);
                 break;
-            case "estimtedTime":
+            case "estimatedTime":
                 setEstimatedTime(value);
                 break;
             case "materialsNeeded":
@@ -84,10 +88,10 @@ const CreateCourse = () => {
                     <>
                         <div>
                             <label htmlFor="courseTitle">Course Title</label>
-                            <input id="courseTitle" name="courseTitle" onChange={change} type="text" />
+                            <input type="text" id="courseTitle" name="courseTitle" onChange={change}  />
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input id="courseAuthor" name="courseAuthor" onChange={change} type="text" />
+                            <input type="text" id="courseAuthor" name="courseAuthor" value={`${courseAuthor}`} readonly />
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" onChange={change}></textarea>
@@ -95,7 +99,7 @@ const CreateCourse = () => {
                         </div>
                         <div>
                             <label htmlFor="estimatedTime">Estimated Time</label>
-                            <input id="estimatedTime" name="estimatedTime" onChange={change} type="text" />
+                            <input type="text" id="estimatedTime" name="estimatedTime" onChange={change}  />
 
                             <label htmlFor="materialsNeeded">Materials Needed</label>
                             <textarea id="materialsNeeded" name="materialsNeeded" onChange={change}></textarea>

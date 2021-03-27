@@ -27,7 +27,6 @@ const UpdateCourse = () => {
                     return data.course;
                 })
                 .then((course)=> {
-                    console.log(course);
                     setCourseTitle(course.title);
                     setCourseAuthor(`${course.User.firstName} ${course.User.lastName}`);
                     setCourseDescription(course.description);
@@ -53,7 +52,6 @@ const UpdateCourse = () => {
                     history.push(`/courses/${id}`)
                 } else if (response.status === 403){
                     response.json().then(data => {
-                        console.log(data);
                         setErrors([data.message]);
                     });
                 } else {
@@ -85,7 +83,7 @@ const UpdateCourse = () => {
             case "courseDescription":
                 setCourseDescription(value);
                 break;
-            case "estimtedTime":
+            case "estimatedTime":
                 setEstimatedTime(value);
                 break;
             case "materialsNeeded":
@@ -109,7 +107,7 @@ const UpdateCourse = () => {
                             <input type="text" id="courseTitle" name="courseTitle" onChange={change} value={courseTitle}  />
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input type="text" id="courseAuthor" name="courseAuthor" onChange={change} value={courseAuthor}  />
+                            <input type="text" id="courseAuthor" name="courseAuthor" value={courseAuthor} />
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" onChange={change} value={courseDescription}></textarea>
@@ -117,7 +115,7 @@ const UpdateCourse = () => {
                         </div>
                         <div>
                             <label htmlFor="estimatedTime">Estimated Time</label>
-                            <input type="text" id="estimatedTime" name="estimatedTime" onChange={change} value={estimatedTime}  />
+                            <input type="text" id="estimatedTime" name="estimatedTime" onChange={change} value={estimatedTime} />
 
                             <label htmlFor="materialsNeeded">Materials Needed</label>
                             <textarea id="materialsNeeded" name="materialsNeeded" onChange={change} value={materialsNeeded}></textarea>
