@@ -36,7 +36,7 @@ export const Provider = (props) => {
 
     const getCourses = async () => {
         const response = await api('/courses',);
-        return response.json();
+        return response;
     };
 
     const getCourse = async (id) => {
@@ -48,13 +48,7 @@ export const Provider = (props) => {
 
     const getUser = async (username, password) => {
         const response = await api('/users','GET', null, true, {username, password});
-        if(response.status === 200){
-            return response.json();
-        } else if(response.status === 401){
-            return null;
-        } else {
-            throw new Error();
-        }
+        return response;
     };
 
     const createUser = async (user) => {
@@ -81,21 +75,24 @@ export const Provider = (props) => {
     };
 
     const signIn = async (username, password) => {
+        let user;
         const response = await getUser(username, password);
-        try{
-            const {user} = response;
-            user.password = password;
-            setAuthenticatedUser(user);
-            const cookieOptions = { expires: 1 };
-            Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
-            return response; 
-        } catch(error){
-            const errorResponse = {
-                errors: ['Access Denied']
-            }
-            return errorResponse;
-            
-        }       
+        if(response.status === 200){
+            await response.json().then(data => {
+                user = data.user;
+                user.password = password;
+                setAuthenticatedUser(user);
+                const cookieOptions = {expires: 1}
+                Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
+                
+            })
+            return user;
+        } else if(response.status === 500) {
+            return 500;
+        } else {
+            return "Login Failure";
+        }
+        
     };
 
     const testError = async () => {

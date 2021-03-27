@@ -38,6 +38,8 @@ const CreateCourse = () => {
                     response.json().then(data => {
                         setErrors(data.errors);
                     });
+                } else if(response.status === 500) {
+                    history.push('/error');
                 } else {
                     throw new Error('Unknown error from createCourse()');
                 }
@@ -45,7 +47,7 @@ const CreateCourse = () => {
             .catch(error => {
                 console.log('Error: ', error);
                 setErrors(error);
-                //history.push('/error')
+                history.push('/error')
             })
         ;
 

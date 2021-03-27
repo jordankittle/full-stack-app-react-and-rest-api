@@ -1,20 +1,30 @@
 import Course from './Course';
 import { useState, useContext, useEffect } from 'react';
 import { APIContext } from '../Context';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Courses() {
 
     const [courses, setCourses] = useState();
     const { actions } = useContext(APIContext);
+
+    const history = useHistory();
     
     useEffect( () => {
         const getCourses = async () => {
             await actions.getCourses()
-                .then(data => setCourses(data.courses));
+                .then(response => {
+                    if(response.status === 200){
+                        response.json().then(data => setCourses(data.courses));
+                    } else if(response.status === 500){
+                        history.push('/error');
+                    } else {
+                        throw new Error('Error getting courses');
+                    }
+                })
         };
         getCourses();
-    }, [actions]);
+    }, [actions, history]);
 
     return (
     <div className="wrap main--grid">

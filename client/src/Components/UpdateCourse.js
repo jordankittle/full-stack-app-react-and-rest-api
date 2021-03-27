@@ -48,7 +48,8 @@ const UpdateCourse = () => {
                             
                     } else if(response.status === 404){
                         history.push('/notfound');
-                        
+                    } else if(response.status === 500){
+                        history.push('/error');        
                     } else {
                         throw new Error('Error getting course')
                     }
@@ -79,6 +80,8 @@ const UpdateCourse = () => {
                     response.json().then(data => {
                         setErrors(['You are not the owner of this course']);
                     })
+                } else if(response.status === 500) {
+                    history.push('/error');
                 } else {
                     throw new Error('Unknown error from updateCourse()');
                 }

@@ -27,28 +27,18 @@ const UserSignIn = () => {
         }
     };
 
-    const submit = (event) => {
+    const submit = async (event) => {
         event.preventDefault();
         const { from } = location.state || { from: { pathname: '/'} };
 
-        actions.signIn(emailAddress, password)
-            .then((response) => {
-                try {
-                    const { user, errors } = response;
-                    if(!user){
-                        setErrors(errors);
-                    } else{
-                        history.push(from);
-                    }
-                } catch(err) {
-                    setErrors(['Error signing in']);
-                }
-                
-            })
-            .catch((error) => {
-                console.error(error);
-                history.push('/error');
-            })
+        const response = await actions.signIn(emailAddress, password);
+        if(response === 500){
+            history.push('/error')
+        } else if ( response === "Login Failure"){
+            setErrors(['Access Denied']);
+        } else {
+            history.push(from);
+        }
     };
 
     const cancel = () => {
