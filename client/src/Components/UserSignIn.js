@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useHistory, useLocation, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
+import ShowErrors from './ShowErrors';
 
 const UserSignIn = () => {
     const [ emailAddress, setEmailAddress ] = useState();
@@ -29,13 +30,18 @@ const UserSignIn = () => {
         const { from } = location.state || { from: { pathname: '/'} };
 
         actions.signIn(emailAddress, password)
-            .then((user) => {
-                if(user === null){
-                    setErrors(['Sign-in was unsuccessful']);
-                    console.log(errors);
-                } else{
-                    history.push(from);
+            .then((response) => {
+                try {
+                    const { user, errors } = response;
+                    if(!user){
+                        setErrors(errors);
+                    } else{
+                        history.push(from);
+                    }
+                } catch(err) {
+                    setErrors(['Error signing in']);
                 }
+                
             })
             .catch((error) => {
                 console.error(error);
@@ -50,6 +56,7 @@ const UserSignIn = () => {
     return (
         <div className="form--centered">
             <h2> Sign In</h2>
+            <ShowErrors errors={errors} title="Log-in Errors" />
             <form onSubmit={submit}>
                 <label htmlFor="emailAddress">Email Address</label>
                 <input id="emailAddress" name="emailAddress" onChange={change} />

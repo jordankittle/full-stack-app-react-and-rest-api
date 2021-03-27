@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { APISettings } from '../config';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 
 
@@ -74,15 +73,25 @@ export const Provider = (props) => {
     };
 
     const signIn = async (username, password) => {
-        const { user } = await getUser(username, password);
-        if(user !== null){
+        const response = await getUser(username, password);
+        try{
+            const {user} = response;
             user.password = password;
             setAuthenticatedUser(user);
             const cookieOptions = { expires: 1 };
             Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
+            return response; 
+        } catch(error){
+            const errorResponse = {
+                errors: ['Access Denied']
+            }
+            return errorResponse;
             
-        }
-        return user;
+        }       
+    };
+
+    const signOut = () => {
+        console.log('Goodbye!');
     };
 
     return(
@@ -90,6 +99,7 @@ export const Provider = (props) => {
             authenticatedUser,
             actions: {
                 signIn,
+                signOut,
                 getCourses,
                 getCourse,
                 createUser,

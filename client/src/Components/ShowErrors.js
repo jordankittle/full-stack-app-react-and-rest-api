@@ -1,9 +1,9 @@
-function ShowErrors({ errors }) {
+function ShowErrors({ errors, title }) {
     let errorList = null;
     if(errors.length){
         errorList = (
             <div className="validation--errors">
-                <h3>Validation Errors</h3>
+                <h3>{title || "Validation Errors"}</h3>
                 <ul>
                     {errors.map((error, i) => <li key={i}>{error}</li>)}
                 </ul>
