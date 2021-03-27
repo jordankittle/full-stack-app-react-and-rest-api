@@ -1,10 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { APIContext } from '../Context';
 
 const UserSignOut = () => {
     const { actions } = useContext(APIContext);
-    actions.signOut();
+    useEffect(() => {
+        actions.signOut();
+    });
+    
 
     return (
     

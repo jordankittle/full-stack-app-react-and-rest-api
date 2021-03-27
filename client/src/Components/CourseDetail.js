@@ -8,6 +8,8 @@ function CourseDetail(){
     const [ showConfirmDelete, setShowConfirmDelete ] = useState(false);
     const { authenticatedUser, actions } = useContext(APIContext);
 
+    const user = authenticatedUser || {id:null};
+
     const history = useHistory();
     
     useEffect( () => {
@@ -41,7 +43,7 @@ function CourseDetail(){
                 <div className="actions--bar">
                     <div className="wrap">
                         {
-                            authenticatedUser.id === +course.User.id ?
+                            user.id === +course.User.id ?
                                 <>
                                     <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
                                     <DeleteConfirm 
