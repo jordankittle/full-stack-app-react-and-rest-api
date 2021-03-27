@@ -2,12 +2,15 @@ import { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { APIContext } from '../Context';
 
-
-export default () => {
+const UserSignOut = () => {
     const { actions } = useContext(APIContext);
     actions.signOut();
 
     return (
+    
         <Redirect to='/' />
+        
     );
 };
+
+export default UserSignOut;

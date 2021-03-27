@@ -14,6 +14,7 @@ import CourseDetail from './Components/CourseDetail';
 import CreateCourse from './Components/CreateCourse';
 import UserSignIn from './Components/UserSignIn';
 import UserSignUp from './Components/UserSignUp';
+import UserSignOut from './Components/UserSignOut';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path='/courses/:id' component={CourseDetail} />
             <Route path='/signin' component={UserSignIn} />
             <Route path='/signup' component={UserSignUp} />
+            <Route path='/signout' component={UserSignOut} />
             
           </Switch>        
         </main>

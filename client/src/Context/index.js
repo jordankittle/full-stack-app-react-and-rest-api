@@ -91,6 +91,8 @@ export const Provider = (props) => {
     };
 
     const signOut = () => {
+        setAuthenticatedUser(null);
+        Cookies.remove(authenticatedUser);
         console.log('Goodbye!');
     };
 
