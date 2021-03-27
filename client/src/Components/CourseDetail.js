@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
+import ReactMarkdown from 'react-markdown';
 
 function CourseDetail(){
     const  { id }  = useParams();
@@ -68,7 +69,7 @@ function CourseDetail(){
                                 <h3 className="course--detail--title">Course</h3>
                                 <h4 className="course--name">{course.title}</h4>
                                 <p>{`By ${course.User.firstName} ${course.User.lastName}`}</p>
-                                <p>{course.description}</p>
+                                <p><ReactMarkdown>{course.description}</ReactMarkdown></p>
                             </div>
                             <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
@@ -76,7 +77,7 @@ function CourseDetail(){
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <li>{course.materialsNeeded}</li>
+                                <li><ReactMarkdown>{course.materialsNeeded}</ReactMarkdown></li>
                             </ul>
                         </div>
                         </div>
