@@ -15,7 +15,7 @@ const UpdateCourse = () => {
     const [ materialsNeeded, setMaterialsNeeded ] = useState('');
     const [ errors, setErrors ] = useState([]);
 
-    const { authenticatedUser, actions } = useContext(APIContext);
+    const { actions } = useContext(APIContext);
     
     const history = useHistory();
 
@@ -50,10 +50,14 @@ const UpdateCourse = () => {
             .then(response => {
                 if(response.status === 204){
                     history.push(`/courses/${id}`)
-                } else if (response.status === 403){
+                } else if (response.status === 400){
                     response.json().then(data => {
-                        setErrors([data.message]);
+                        setErrors(data.errors);
                     });
+                } else if(response.status === 403) {
+                    response.json().then(data => {
+                        setErrors(['You are not the owner of this course']);
+                    })
                 } else {
                     throw new Error('Unknown error from updateCourse()');
                 }
@@ -89,6 +93,8 @@ const UpdateCourse = () => {
             case "materialsNeeded":
                 setMaterialsNeeded(value);
                 break;
+            default:
+                break;
         }
     };
 
@@ -107,7 +113,7 @@ const UpdateCourse = () => {
                             <input type="text" id="courseTitle" name="courseTitle" onChange={change} value={courseTitle}  />
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input type="text" id="courseAuthor" name="courseAuthor" value={courseAuthor} />
+                            <input type="text" id="courseAuthor" name="courseAuthor" value={courseAuthor} readOnly />
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" onChange={change} value={courseDescription}></textarea>

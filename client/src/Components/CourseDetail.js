@@ -22,7 +22,6 @@ function CourseDetail(){
         actions.deleteCourse(id)
             .then(response => {
                 if(response.status === 204){
-                    console.log('Course successfully deleted');
                     history.push('/');
                 } else if(response.status === 403){
                     console.log('Access Denied');

@@ -1,13 +1,12 @@
 import './Components/global.css';
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
-import { APIContext } from './Context';
-import PrivateRoute from './PrivateRoute';
 
+import PrivateRoute from './PrivateRoute';
 import Header from './Components/Header';
 import Courses from './Components/Courses';
 import CourseDetail from './Components/CourseDetail';

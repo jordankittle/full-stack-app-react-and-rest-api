@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import { APISettings } from '../config';
-import { useHistory } from 'react-router-dom';
-
-
 
 export const APIContext = React.createContext();
 
@@ -12,8 +9,6 @@ export const Provider = (props) => {
     const [ authenticatedUser, setAuthenticatedUser ] = useState(() => {
         return Cookies.getJSON('authenticatedUser') || null;
     });
-
-    const history = useHistory();
 
     // handle API calls
     const api = (path, method = 'GET', body = null, requiresAuth = false, credentials = null) => {

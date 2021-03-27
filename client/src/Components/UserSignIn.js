@@ -22,6 +22,8 @@ const UserSignIn = () => {
             case "password":
                 setPassword(value);
                 break;
+            default:
+                break;
         }
     };
 
@@ -66,7 +68,7 @@ const UserSignIn = () => {
                 <button className="button button-secdonary" onClick={cancel}>Cancel</button>
 
             </form>
-            <p> Don't have a user account? Click here to <a href="/signup">sign up</a></p>
+            <p> Don't have a user account? Click here to <Link to="/signup">sign up</Link></p>
         </div>
     );
 

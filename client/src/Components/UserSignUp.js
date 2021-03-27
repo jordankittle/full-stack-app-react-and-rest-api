@@ -86,7 +86,7 @@ const UserSignUp = () => {
                 <button class="button" type="submit">Sign Up</button>
                 <button class="button button-secondary" onClick={cancel}>Cancel</button>
             </form>
-            <p>Already have a user account? Click here to <a href="/signin">sign in</a>!</p>
+            <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
         </div>
     );
 };

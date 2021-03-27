@@ -16,7 +16,7 @@ function handleSubmit(event) {
 
     function handleCancel(event) {
     event.preventDefault();
-    //cancel();
+    cancel();
     }
 
 return(

@@ -19,7 +19,7 @@ const CreateCourse = () => {
 
     useEffect(() => {
         setCourseAuthor(`${authenticatedUser.firstName} ${authenticatedUser.lastName}`);
-    }, []);
+    },[authenticatedUser.firstName, authenticatedUser.lastName]);
 
     const submit = (event) => {
         const courseData = {
@@ -73,6 +73,8 @@ const CreateCourse = () => {
             case "materialsNeeded":
                 setMaterialsNeeded(value);
                 break;
+            default:
+                break;
         }
     };
 
@@ -91,7 +93,7 @@ const CreateCourse = () => {
                             <input type="text" id="courseTitle" name="courseTitle" onChange={change}  />
 
                             <label htmlFor="courseAuthor">Course Author</label>
-                            <input type="text" id="courseAuthor" name="courseAuthor" value={`${courseAuthor}`} readonly />
+                            <input type="text" id="courseAuthor" name="courseAuthor" value={`${courseAuthor}`} readOnly />
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" onChange={change}></textarea>
