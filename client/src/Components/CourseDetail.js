@@ -16,10 +16,22 @@ function CourseDetail(){
     useEffect( () => {
         const getCourse = async () => {
             await actions.getCourse(id)
-                .then(data => setCourse(data.course));
+                .then(response => {
+                    if(response.status === 200){
+                        response.json()
+                        .then(data => setCourse(data.course))
+                        
+                    } else if(response.status === 404){
+                        history.push('/notfound');
+                    } else if(response.status === 500){
+                        history.push('/error');
+                    } else {
+                        throw new Error('Unknown error getting course');
+                    }
+                })
         };
         getCourse();
-    }, [actions, id]);
+    }, [actions, id, history]);
 
     const deleteCourse = () => {
         actions.deleteCourse(id)
@@ -28,6 +40,10 @@ function CourseDetail(){
                     history.push('/');
                 } else if(response.status === 403){
                     console.log('Access Denied');
+                } else if(response.status === 500){
+                    history.push('/error');
+                } else {
+                    throw new Error('Unkown error deleting course');
                 }
             })
             .catch(error => {
@@ -69,7 +85,7 @@ function CourseDetail(){
                                 <h3 className="course--detail--title">Course</h3>
                                 <h4 className="course--name">{course.title}</h4>
                                 <p>{`By ${course.User.firstName} ${course.User.lastName}`}</p>
-                                <p><ReactMarkdown>{course.description}</ReactMarkdown></p>
+                                <ReactMarkdown>{course.description}</ReactMarkdown>
                             </div>
                             <div>
                             <h3 className="course--detail--title">Estimated Time</h3>
@@ -77,7 +93,7 @@ function CourseDetail(){
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <li><ReactMarkdown>{course.materialsNeeded}</ReactMarkdown></li>
+                            <ReactMarkdown>{course.materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>
                         </div>
@@ -105,9 +121,9 @@ function DeleteConfirm(props) {
         <>
             {    
                 showConfirmDelete ?
-                       <>
-                        <button className="button button-confirm" onClick={deleteCourse}>Confirm Delete</button>
+                    <>
                         <button className="button button-cancel" onClick={() => setShowConfirmDelete(false)}>Keep Course</button>
+                        <button className="button button-confirm" onClick={deleteCourse}>Confirm Delete</button>
                     </>
                 :
                     <button className="button" onClick={() => setShowConfirmDelete(true)}>Delete Course</button>

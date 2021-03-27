@@ -15,6 +15,10 @@ import UpdateCourse from './Components/UpdateCourse';
 import UserSignIn from './Components/UserSignIn';
 import UserSignUp from './Components/UserSignUp';
 import UserSignOut from './Components/UserSignOut';
+import NotFound from './Components/NotFound';
+import Forbidden from './Components/Forbidden';
+import UnhandledError from './Components/UnhandledError';
+import TestError from './Components/TestError';
 
 
 function App() {
@@ -32,6 +36,11 @@ function App() {
             <Route path='/signin' component={UserSignIn} />
             <Route path='/signup' component={UserSignUp} />
             <Route path='/signout' component={UserSignOut} />
+            <Route path='/notfound' component={NotFound} />
+            <Route path='/forbidden' component={Forbidden} />
+            <Route path='/test-error' component={TestError} />
+            <Route path ='/error' component={UnhandledError} />
+            <Route component={NotFound} />
             
           </Switch>        
         </main>

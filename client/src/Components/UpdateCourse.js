@@ -15,27 +15,48 @@ const UpdateCourse = () => {
     const [ materialsNeeded, setMaterialsNeeded ] = useState('');
     const [ errors, setErrors ] = useState([]);
 
-    const { actions } = useContext(APIContext);
+    const { authenticatedUser, actions } = useContext(APIContext);
     
     const history = useHistory();
 
     useEffect( () => {
         (async () => {
             await actions.getCourse(id)
-                .then(data => {
-                    setCourse(data.course);
-                    return data.course;
+                .then(response => {
+                    if(response.status === 200){
+                        response.json()
+                            .then(data => {
+                                setCourse(data.course);
+                                return data.course;
+                            })
+                            .then((course)=> {
+                                setCourseTitle(course.title);
+                                setCourseAuthor(`${course.User.firstName} ${course.User.lastName}`);
+                                setCourseDescription(course.description);
+                                setEstimatedTime(course.estimatedTime);
+                                setMaterialsNeeded(course.materialsNeeded);
+                                return course;
+                            })
+                            .then(course => {
+                                if(course.userId !== authenticatedUser.id){
+                                    history.push('/forbidden');
+                                }
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+                            
+                    } else if(response.status === 404){
+                        history.push('/notfound');
+                        
+                    } else {
+                        throw new Error('Error getting course')
+                    }
                 })
-                .then((course)=> {
-                    setCourseTitle(course.title);
-                    setCourseAuthor(`${course.User.firstName} ${course.User.lastName}`);
-                    setCourseDescription(course.description);
-                    setEstimatedTime(course.estimatedTime);
-                    setMaterialsNeeded(course.materialsNeeded);
-                })
+                
         })();
         
-    }, [actions, id]);
+    }, [actions, id, history, authenticatedUser.id]);
     
     const submit = () => {
         const courseData = {

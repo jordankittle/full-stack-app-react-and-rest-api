@@ -29,7 +29,7 @@ export const Provider = (props) => {
             const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
             options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
-        return fetch(url, options);
+        return fetch(url, options)
     };
 
     
@@ -41,7 +41,8 @@ export const Provider = (props) => {
 
     const getCourse = async (id) => {
         const response = await api(`/courses/${id}`);
-        return response.json().then(data => data);
+        return response;
+        //return response.json().then(data => data);
 
     };
 
@@ -97,6 +98,10 @@ export const Provider = (props) => {
         }       
     };
 
+    const testError = async () => {
+        await api('/test-error');
+    };
+
     const signOut = () => {
         Cookies.remove('authenticatedUser');
         setAuthenticatedUser(null);
@@ -113,7 +118,8 @@ export const Provider = (props) => {
                 createUser,
                 createCourse,
                 updateCourse,
-                deleteCourse
+                deleteCourse,
+                testError
             },
         }}>
         { props.children }

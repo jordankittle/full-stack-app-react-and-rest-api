@@ -79,10 +79,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notNull: {
-          msg: 'Password is required',
+          msg: 'Password is required and must match confirm password',
         },
         notEmpty: {
-          msg: "Password is required"
+          msg: "Password is required and must match confirm password"
         },
       }
     },
