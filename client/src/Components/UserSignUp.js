@@ -2,6 +2,8 @@ import { useState, useContext } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
 
+import ShowErrors from './ShowErrors';
+
 const UserSignUp = () => {
     const [ firstName, setFirstName ] = useState();
     const [ lastName, setLastName ] = useState();
@@ -44,16 +46,16 @@ const UserSignUp = () => {
             password: password,
         };
         actions.createUser(user)
-            .then((errors) => {
-                if(errors.length){
-                    setErrors(errors);
-                    console.log(errors);
-                } else{
+            .then(response => {
+                if(response.status === 201){
                     actions.signIn(emailAddress, password)
                         .then(() => {
                             history.push('/');
                         });
-                    console.log('User created');
+                } else if (response.status === 400){
+                    response.json().then(data => {
+                        setErrors(data.errors);
+                    });
                 }
             })
             .catch((error) => {
@@ -69,6 +71,7 @@ const UserSignUp = () => {
     return (
         <div className="form--centered">
             <h2>Sign Up</h2>
+            <ShowErrors errors={errors} />
             <form onSubmit={submit}>
                 <label htmlFor="firstName">First Name</label>
                 <input id="firstName" name="firstName" onChange={change} type="text" />

@@ -64,32 +64,13 @@ export const Provider = (props) => {
 
     const createUser = async (user) => {
         const response = await api('/users', 'POST', user);
-        if(response.status === 201) {
-            return [];
-        } else if(response.status === 400){
-            return response.json().then(data => data.errors);
-  
-        } else {
-            throw new Error();
-        }
+        return response;
     };
 
     const createCourse = async (courseData) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api('/courses', 'POST', courseData, true, {username, password});
-        if(response.status === 201) {
-            console.log(response.headers.get('Location'));
-            return ('Course created');
-
-        } else if(response.status === 400){
-           return(response);
-        } else {
-            console.log(2);
-            const error = new Error('Error response');
-        return error.message;
-        }
-
-        
+        return response;
     };
 
     const signIn = async (username, password) => {

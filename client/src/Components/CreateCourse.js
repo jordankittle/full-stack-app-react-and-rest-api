@@ -27,7 +27,16 @@ const CreateCourse = () => {
         };
         actions.createCourse(courseData)
             .then(response => {
-                console.log('response: ', response);
+                if(response.status === 201){
+                    const location = response.headers.get('Location');
+                    history.push(location);
+                } else if (response.status === 400){
+                    response.json().then(data => {
+                        setErrors(data.errors);
+                    });
+                } else {
+                    throw new Error('Unknown error from createCourse()');
+                }
             })
             .catch(error => {
                 console.log('got here: ', error);

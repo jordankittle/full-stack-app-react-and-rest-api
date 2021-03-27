@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        notNull: {
+          msg: "First name is required"
+        },
         notEmpty: {
           msg: "First name is required"
         }
@@ -39,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
+        notNull: {
+          msg: "Last name is required"
+        },
         notEmpty: {
           msg: "Last name is required"
         }
@@ -51,6 +57,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       allowNull: false,
       validate: {
+        notNull: {
+          msg: "E-mail is required"
+        },
         notEmpty: {
           msg: "E-mail is required"
         },
@@ -70,10 +79,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notNull: {
-          msg: 'Password and confirm password must be entered and match',
+          msg: 'Password is required',
         },
         notEmpty: {
-          msg: "Password and confirm password must be entered and match"
+          msg: "Password is required"
         },
       }
     },
@@ -82,10 +91,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Password and confirm password must be entered and match',
+          msg: 'Confirm Password is required and must match password',
         },
         notEmpty: {
-          msg: 'Password and confirm password must be entered and match',
+          msg: 'Confirm Password is required and must match password',
         },
       },
     },
