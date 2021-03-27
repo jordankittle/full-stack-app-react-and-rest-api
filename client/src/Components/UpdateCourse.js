@@ -37,7 +37,7 @@ const UpdateCourse = () => {
         
     }, [actions, id]);
     
-    const submit = (event) => {
+    const submit = () => {
         const courseData = {
             id,
             userId: course.userId,

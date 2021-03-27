@@ -5,6 +5,7 @@ const CourseForm = (props) => {
 const {
     errors,
     submit,
+    cancel,
     submitText,
     elements
 } = props;
