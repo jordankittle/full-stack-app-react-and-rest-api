@@ -27,10 +27,10 @@ const CreateCourse = () => {
         };
         actions.createCourse(courseData)
             .then(response => {
-                setErrors(response);
                 console.log('response: ', response);
             })
             .catch(error => {
+                console.log('got here: ', error);
                 setErrors(error);
                 //history.push('/error')
             })

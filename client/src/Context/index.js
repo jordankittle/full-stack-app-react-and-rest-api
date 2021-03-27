@@ -13,8 +13,6 @@ export const Provider = (props) => {
     const [ authenticatedUser, setAuthenticatedUser ] = useState(() => {
         return Cookies.getJSON('authenticatedUser') || null;
     });
-    const [ storedCredentials, setStoredCredentials ] = useState({});
-    console.log('credentials: ', storedCredentials);
 
     const history = useHistory();
 
@@ -31,14 +29,12 @@ export const Provider = (props) => {
         
         if(body !== null){
             options.body = JSON.stringify(body);
-            //options.data = JSON.stringify(body);
         }
 
         if(requiresAuth){
             const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
             options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
-        //return axios(options);
         return fetch(url, options);
     };
 
@@ -47,21 +43,18 @@ export const Provider = (props) => {
     const getCourses = async () => {
         const response = await api('/courses',);
         return response.json();
-        //return response.data;
     };
 
     const getCourse = async (id) => {
         const response = await api(`/courses/${id}`);
-        // return response.json().then(data => data);
-        // return response.then(data => data);
-        return response.data;
+        return response.json().then(data => data);
+
     };
 
     const getUser = async (username, password) => {
         const response = await api('/users','GET', null, true, {username, password});
         if(response.status === 200){
             return response.json();
-            //return response.data;
         } else if(response.status === 401){
             return null;
         } else {
@@ -74,51 +67,38 @@ export const Provider = (props) => {
         if(response.status === 201) {
             return [];
         } else if(response.status === 400){
-            // return response.json().then(data => data.errors);
-            // return response.then(data => data.errors);
-            return response.data.errors;
+            return response.json().then(data => data.errors);
+  
         } else {
             throw new Error();
         }
     };
 
     const createCourse = async (courseData) => {
-        const { username, password } = storedCredentials;
-        if(username && password){
-            const response = await api('/courses', 'POST', courseData, true, {username, password});
-            if(response.status === 201) {
-                console.log('response:' , response);
-                console.log('response.data: ', response.data);
-                return response.data;
-            } else if(response.status === 400){
-                console.log(1);
-                return response.json().then(data => data.errors);
-                //const errors = response.data.errors.map(error => error.message);
-                //return errors;
-            } else {
-                console.log(2);
-                const error = new Error('Error response');
-            return error.message;
-            }
+        const { emailAddress: username, password } = authenticatedUser;
+        const response = await api('/courses', 'POST', courseData, true, {username, password});
+        if(response.status === 201) {
+            console.log(response.headers.get('Location'));
+            return ('Course created');
+
+        } else if(response.status === 400){
+           return(response);
         } else {
-            console.log(3);
-            const error = new Error('Please log in again');
-            return error.message;
-            
+            console.log(2);
+            const error = new Error('Error response');
+        return error.message;
         }
+
         
     };
 
     const signIn = async (username, password) => {
         const { user } = await getUser(username, password);
         if(user !== null){
+            user.password = password;
             setAuthenticatedUser(user);
             const cookieOptions = { expires: 1 };
             Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
-            setStoredCredentials({
-                username,
-                password
-            });
             
         }
         return user;

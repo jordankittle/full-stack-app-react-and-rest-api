@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Course title required"
+          msg: "Course title TEST required!"
         }
       }
     },
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: {
-          msg: "Course description required"
+          msg: "Course description TEST required!"
         }
       }
     },
