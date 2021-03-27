@@ -41,7 +41,7 @@ const UpdateCourse = () => {
     const submit = (event) => {
         const courseData = {
             id,
-            userId: authenticatedUser.id,
+            userId: course.userId,
             title: courseTitle,
             description: courseDescription,
             estimatedTime,
@@ -50,10 +50,11 @@ const UpdateCourse = () => {
         actions.updateCourse(courseData)
             .then(response => {
                 if(response.status === 204){
-                    console.log('Course successfully updated')
-                } else if (response.status === 400){
+                    history.push(`/courses/${id}`)
+                } else if (response.status === 403){
                     response.json().then(data => {
-                        setErrors(data.errors);
+                        console.log(data);
+                        setErrors([data.message]);
                     });
                 } else {
                     throw new Error('Unknown error from updateCourse()');

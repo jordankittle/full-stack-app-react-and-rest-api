@@ -78,6 +78,12 @@ export const Provider = (props) => {
         return response;
     };
 
+    const deleteCourse = async (id) => {
+        const { emailAddress: username, password } = authenticatedUser;
+        const response = await api(`/courses/${id}`, 'DELETE', null, true, {username, password});
+        return response;
+    };
+
     const signIn = async (username, password) => {
         const response = await getUser(username, password);
         try{
@@ -113,6 +119,7 @@ export const Provider = (props) => {
                 createUser,
                 createCourse,
                 updateCourse,
+                deleteCourse
             },
         }}>
         { props.children }

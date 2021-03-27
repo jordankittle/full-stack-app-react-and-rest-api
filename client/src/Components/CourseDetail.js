@@ -1,11 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { APIContext } from '../Context';
 
 function CourseDetail(){
     const  { id }  = useParams();
     const [course, setCourse] = useState();
-    const { actions } = useContext(APIContext);
+    const [ showConfirmDelete, setShowConfirmDelete ] = useState(false);
+    const { authenticatedUser, actions } = useContext(APIContext);
+
+    const history = useHistory();
     
     useEffect( () => {
         const getCourse = async () => {
@@ -15,13 +18,43 @@ function CourseDetail(){
         getCourse();
     }, [actions, id]);
 
+    const deleteCourse = () => {
+        actions.deleteCourse(id)
+            .then(response => {
+                if(response.status === 204){
+                    console.log('Course successfully deleted');
+                    history.push('/');
+                } else if(response.status === 403){
+                    console.log('Access Denied');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        ;
+  
+        //history.push('/');
+    };
+
     if(course){
         return (
             <>
                 <div className="actions--bar">
                     <div className="wrap">
-                        <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-                        <button className="button" href="#">Delete Course</button>
+                        {
+                            authenticatedUser.id === +course.User.id ?
+                                <>
+                                    <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
+                                    <DeleteConfirm 
+                                        showConfirmDelete={showConfirmDelete} 
+                                        setShowConfirmDelete={setShowConfirmDelete}
+                                        deleteCourse={deleteCourse}
+                                    />
+                                </>
+                            :
+                                null
+
+                        }
                         <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
@@ -62,4 +95,22 @@ function CourseDetail(){
     }
 }
 
+function DeleteConfirm(props) {
+
+    const {setShowConfirmDelete, deleteCourse, showConfirmDelete} = props;
+
+    return (
+        <>
+            {    
+                showConfirmDelete ?
+                       <>
+                        <button className="button button-confirm" onClick={deleteCourse}>Confirm Delete</button>
+                        <button className="button button-cancel" onClick={() => setShowConfirmDelete(false)}>Keep Course</button>
+                    </>
+                :
+                    <button className="button" onClick={() => setShowConfirmDelete(true)}>Delete Course</button>
+            }
+        </>
+    );
+}
 export default CourseDetail;

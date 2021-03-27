@@ -239,3 +239,15 @@ input:focus, button:focus, .button:focus, textarea:focus {
         display: inline-block;
     }
 }
+
+/* Custom styling */
+
+.button-confirm {
+    background: rgb(175, 17, 17);
+}
+.button-confirm:not(.button-secondary):hover {
+    background: rgb(175, 17, 17);
+}
+.button-confirm:focus{
+    outline: 2px solid rgb(175, 17, 17);
+}
