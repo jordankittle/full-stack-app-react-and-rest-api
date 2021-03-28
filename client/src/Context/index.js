@@ -74,9 +74,9 @@ export const Provider = (props) => {
         return response;
     };
 
-    const signIn = async (username, password) => {
+    const signIn = async (emailAddress, password) => {
         let user;
-        const response = await getUser(username, password);
+        const response = await getUser(emailAddress, password);
         if(response.status === 200){
             await response.json().then(data => {
                 user = data.user;
