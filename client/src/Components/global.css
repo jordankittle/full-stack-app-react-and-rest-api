@@ -242,12 +242,103 @@ input:focus, button:focus, .button:focus, textarea:focus {
 
 /* Custom styling */
 
+:root {
+    --main-blue:#00607e;
+    --hover-blue: #006f92;
+}
+
+header {
+    background: var(--main-blue);
+}
+
+.sign-in a {
+    color: #50b2d8;
+    font-weight: 600;
+}
+.sign-in a:hover {
+    color: #50b2d8;
+}
+
+
+header nav a {
+    color: white;
+}
+header nav a {
+    color: white;
+}
+
+.actions--bar {
+    background: #ccd8de;
+}
+
+.course--name {
+    color: var(--main-blue);
+}
+
+.button{
+    background: var(--main-blue);
+}
+
+.button:hover {
+    box-shadow: 0px 2px 7px -1px rgb(0 0 0 / 51%);
+    background: var(--hover-blue);
+}
+
+.button:not(.button-secondary):hover {
+    background: var(--hover-blue);
+    cursor: pointer;
+}
+
+.button-secondary {
+    background: var(--main-blue);
+    color: white;
+    transition: box-shadow 0s, color 0s;
+    box-shadow: none;
+}
+
+.button-secondary:hover {
+    color: white;
+}
+
 .button-confirm {
     background: rgb(175, 17, 17);
 }
+
 .button-confirm:not(.button-secondary):hover {
-    background: rgb(175, 17, 17);
+    background: rgb(204, 20, 20);
 }
 .button-confirm:focus{
     outline: 2px solid rgb(175, 17, 17);
 }
+
+.course--module {
+    background: var(--main-blue);
+}
+
+.course--add--module {
+    background: #0880a736;
+    color: rgb(119, 119, 119);
+}
+
+a.course--module.course--link:hover{
+    box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.51);
+    -webkit-box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.51);
+    -moz-box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.51);
+    background: var(--hover-blue);
+}
+
+a.course--module.course--add--module:hover {
+    box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.31);
+    -webkit-box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.31);
+    -moz-box-shadow: 10px 10px 10px -5px rgba(0,0,0,0.31);
+    background: #b7dbe6;
+    color: white;
+}
+
+.course--add--title .add {
+    fill: rgb(119, 119, 119);
+}
+.course--module.course--add--module:hover .add {
+    fill: white;
+}
+

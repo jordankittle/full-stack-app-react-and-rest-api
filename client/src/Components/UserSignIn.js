@@ -58,7 +58,7 @@ const UserSignIn = () => {
                 <button className="button button-secdonary" onClick={cancel}>Cancel</button>
 
             </form>
-            <p> Don't have a user account? Click here to <Link to="/signup">sign up</Link></p>
+            <p className="sign-in"> Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>
         </div>
     );
 
