@@ -277,6 +277,7 @@ header nav a {
 
 .button{
     background: var(--main-blue);
+    font-size: .9rem;
 }
 
 .button:hover {
