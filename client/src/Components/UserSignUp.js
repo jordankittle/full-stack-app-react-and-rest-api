@@ -87,7 +87,7 @@ const UserSignUp = () => {
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <input id="confirmPassword" name="confirmPassword" onChange={change} type="password" />
                 <button className="button" type="submit">Sign Up</button>
-                <button className="button button-secondary" onClick={cancel}>Cancel</button>
+                <button className="button button-secondary" type="button" onClick={cancel}>Cancel</button>
             </form>
             <p className="sign-in">Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
         </div>
