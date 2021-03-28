@@ -7,8 +7,8 @@ This is the final Treehouse Full Stack JavasScript Techdegree project. It create
 ### Install
 1. Navigate to the API folder in your terminal / command prompt
     - $ npm install
-    - npm run seed
-    - npm start
+    - $ npm run seed
+    - $ npm start
 2. Navigate to the CLIENT folder in a different terminal / command prompt
     - $ npm install
     - $ npm start
