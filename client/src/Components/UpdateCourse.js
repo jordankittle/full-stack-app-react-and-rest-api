@@ -59,6 +59,7 @@ const UpdateCourse = () => {
         
     }, [actions, id, history, authenticatedUser.id]);
     
+    // submit course data to be updated
     const submit = () => {
         const courseData = {
             id,
@@ -89,7 +90,6 @@ const UpdateCourse = () => {
             .catch(error => {
                 console.log('Error: ', error);
                 setErrors(error);
-                //history.push('/error')
             })
         ;
 
@@ -99,6 +99,7 @@ const UpdateCourse = () => {
         history.push('/');
     };
 
+    // update course data in state on input field change
     const change = (event) => {
         const value = event.target.value;
         switch(event.target.name){

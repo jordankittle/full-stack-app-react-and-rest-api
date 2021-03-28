@@ -27,6 +27,7 @@ const UserSignIn = () => {
         }
     };
 
+    // submit user login information
     const submit = async (event) => {
         event.preventDefault();
         const { from } = location.state || { from: { pathname: '/'} };

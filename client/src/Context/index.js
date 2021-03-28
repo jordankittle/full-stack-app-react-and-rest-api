@@ -33,47 +33,52 @@ export const Provider = (props) => {
     };
 
     
-
+    // get courses
     const getCourses = async () => {
         const response = await api('/courses',);
         return response;
     };
 
+    // get a course by ID
     const getCourse = async (id) => {
         const response = await api(`/courses/${id}`);
         return response;
-        //return response.json().then(data => data);
-
     };
 
+    // get current user
     const getUser = async (username, password) => {
         const response = await api('/users','GET', null, true, {username, password});
         return response;
     };
 
+    // create new user
     const createUser = async (user) => {
         const response = await api('/users', 'POST', user);
         return response;
     };
 
+    // create new course
     const createCourse = async (courseData) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api('/courses', 'POST', courseData, true, {username, password});
         return response;
     };
 
+    // update course by ID
     const updateCourse = async (courseData) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api(`/courses/${courseData.id}`, 'PUT', courseData, true, {username, password});
         return response;
     };
 
+    // delete course by ID
     const deleteCourse = async (id) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api(`/courses/${id}`, 'DELETE', null, true, {username, password});
         return response;
     };
 
+    // sign in
     const signIn = async (emailAddress, password) => {
         let user;
         const response = await getUser(emailAddress, password);
@@ -95,10 +100,12 @@ export const Provider = (props) => {
         
     };
 
+    // test error handling
     const testError = async () => {
         await api('/test-error');
     };
 
+    // sign out
     const signOut = () => {
         Cookies.remove('authenticatedUser');
         setAuthenticatedUser(null);

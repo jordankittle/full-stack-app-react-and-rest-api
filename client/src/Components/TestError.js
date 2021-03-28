@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 const TestError = () => {
 
     const history = useHistory();
+    
+    // simulate error 500 response
     useEffect(() => {
         fetch('http://localhost:5000/test-error')
         .then(response => {

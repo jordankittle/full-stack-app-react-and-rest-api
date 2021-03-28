@@ -36,6 +36,7 @@ const UserSignUp = () => {
         }
     };
 
+    // submit new user data
     const submit = (event) => {
         event.preventDefault();
         const user = {

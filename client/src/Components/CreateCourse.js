@@ -16,11 +16,12 @@ const CreateCourse = () => {
     const { authenticatedUser, actions } = useContext(APIContext);
     
     const history = useHistory();
-
+    // set course author to current authenticated user
     useEffect(() => {
         setCourseAuthor(`${authenticatedUser.firstName} ${authenticatedUser.lastName}`);
     },[authenticatedUser.firstName, authenticatedUser.lastName]);
 
+    // submit new course data
     const submit = (event) => {
         const courseData = {
             userId: authenticatedUser.id,
@@ -56,7 +57,8 @@ const CreateCourse = () => {
     const cancel = () => {
         history.push('/');
     };
-
+    
+    // update course data in state on input field change
     const change = (event) => {
         const value = event.target.value;
         switch(event.target.name){

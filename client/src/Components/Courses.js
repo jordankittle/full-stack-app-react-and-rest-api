@@ -10,6 +10,7 @@ function Courses() {
 
     const history = useHistory();
     
+    // get courses data and load into state
     useEffect( () => {
         const getCourses = async () => {
             await actions.getCourses()

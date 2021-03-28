@@ -13,6 +13,7 @@ function CourseDetail(){
 
     const history = useHistory();
     
+    // get course data and load into state
     useEffect( () => {
         const getCourse = async () => {
             await actions.getCourse(id)
@@ -33,6 +34,7 @@ function CourseDetail(){
         getCourse();
     }, [actions, id, history]);
 
+    // delete course
     const deleteCourse = () => {
         actions.deleteCourse(id)
             .then(response => {
@@ -113,6 +115,7 @@ function CourseDetail(){
     }
 }
 
+// confirm delete component
 function DeleteConfirm(props) {
 
     const {setShowConfirmDelete, deleteCourse, showConfirmDelete} = props;
