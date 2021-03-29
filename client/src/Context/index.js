@@ -10,7 +10,7 @@ export const Provider = (props) => {
         return Cookies.getJSON('authenticatedUser') || null;
     });
 
-    // handle API calls
+    // handle API calls then return the response
     const api = (path, method = 'GET', body = null, requiresAuth = false, credentials = null) => {
         const url = APISettings.apiBaseUrl + path;
         const options = {
@@ -33,38 +33,50 @@ export const Provider = (props) => {
     };
 
     
-    // get courses
+    // send a GET request to the '/courses' route using the api function
+    // gets a list of all courses
+    // returns the response
     const getCourses = async () => {
         const response = await api('/courses',);
         return response;
     };
 
-    // get a course by ID
+    // send a GET request to the '/courses/:id' route using the api function
+    // gets a single course by its ID passed to the id argument
+    // returns the response received
     const getCourse = async (id) => {
         const response = await api(`/courses/${id}`);
         return response;
     };
 
-    // get current user
+    // send a GET request to the route '/users' using the api function
+    // gets the data for a user that matches the email/username and password credentials supplied to thei rrespective arguments
+    // returns the response received
     const getUser = async (username, password) => {
         const response = await api('/users','GET', null, true, {username, password});
         return response;
     };
 
-    // create new user
+    // send a POST request to the '/users' route using the api function
+    // creates a new user using the user data supplied to the user argument
+    // returns the response received
     const createUser = async (user) => {
         const response = await api('/users', 'POST', user);
         return response;
     };
 
-    // create new course
+    // send a POST request to the '/courses' route using the api function
+    // creates a new course using the course data supplied ot the courseData argument
+    // returns the response received
     const createCourse = async (courseData) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api('/courses', 'POST', courseData, true, {username, password});
         return response;
     };
 
-    // update course by ID
+    // send a PUT request to the '/courses/:id route using the api function
+    // updates a course using the course data supplied to the courseData argument
+    // returns the response received
     const updateCourse = async (courseData) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api(`/courses/${courseData.id}`, 'PUT', courseData, true, {username, password});
@@ -72,6 +84,8 @@ export const Provider = (props) => {
     };
 
     // delete course by ID
+    // sends a DELETE request to the '/courses/:id' route using the id supplied to the id argument
+    // returns the response received
     const deleteCourse = async (id) => {
         const { emailAddress: username, password } = authenticatedUser;
         const response = await api(`/courses/${id}`, 'DELETE', null, true, {username, password});

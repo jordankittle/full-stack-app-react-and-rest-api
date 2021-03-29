@@ -19,6 +19,9 @@ const UpdateCourse = () => {
     
     const history = useHistory();
 
+    // get course data and populate the form fields with existing information
+    // check to see if the course owner is the same as the currently authenticated user
+    // if the course is not owned by the authenticated user, send to '/forbidden' route
     useEffect( () => {
         (async () => {
             await actions.getCourse(id)
