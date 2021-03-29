@@ -34,7 +34,7 @@ const UserSignIn = () => {
 
         const response = await actions.signIn(emailAddress, password);
         if(response === 500){
-            history.push('/error')
+            history.push('/error');
         } else if ( response === "Login Failure"){
             setErrors(['Access Denied']);
         } else {
