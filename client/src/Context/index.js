@@ -29,7 +29,16 @@ export const Provider = (props) => {
             const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
             options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
+        
         return fetch(url, options)
+            .then(response => response)
+            .catch(response => {
+                response.status = 500;
+                return response;
+            })
+        ;
+        
+        
     };
 
     

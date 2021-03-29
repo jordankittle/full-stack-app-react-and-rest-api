@@ -23,6 +23,10 @@ function Courses() {
                         throw new Error('Error getting courses');
                     }
                 })
+                .catch(error => history.push('/error'))
+            ;
+                   
+                
         };
         getCourses();
     }, [actions, history]);
