@@ -106,9 +106,9 @@ header nav a:hover {
     font-weight: 700;
     color: #47395e;
 }
-.course--detail--list {
+.course--detail--list ul{
     font-weight: 300;
-    margin: 0 0 1.5rem 1rem;
+    margin: 0 0 1.5rem 0;
     line-height: 1.5;
 }
 .actions--bar {
@@ -341,5 +341,9 @@ a.course--module.course--add--module:hover {
 }
 .course--module.course--add--module:hover .add {
     fill: white;
+}
+
+.course--detail--list, .course--detail--list ul {
+    padding-inline-start: 10px;
 }
 
